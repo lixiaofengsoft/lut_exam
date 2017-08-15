@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.dao.IExamQuestionDao">
+	<resultMap type="ExamQuestion" id="ExamQuestionResult"> 
+		   <id property="examquestionid" column="examquestionid" /> 
+		  <result property="subject" column="subject" /> 
+		  <result property="type" column="type" /> 
+		  <result property="optiona" column="optiona" /> 
+		  <result property="optionb" column="optionb" /> 
+		  <result property="optionc" column="optionc" /> 
+		  <result property="optiond" column="optiond" /> 
+		  <result property="answer" column="answer" /> 
+		  
+		  
+		  <result property="course.courseid" column="courseid" /> 
+		  <result property="course.name" column="name" /> 
+		  <result property="examPaper.exampaperid" column="exampaperid" /> 
+		  <result property="examPaper.name" column="ename" /> 
+	</resultMap> 
+
+	<select id="selectAllQuestion"  resultMap="ExamQuestionResult"> 
+		SELECT c.courseid,c.name,e.exampaperid,e.ename,q.examquestionid,q.subject,q.type
+		FROM tb_question q LEFT JOIN tb_course c ON q.courseid =c.courseid 
+		LEFT JOIN tb_exampaper e ON q.exampaperid=e.exampaperid
+		LIMIT  #{startPos},#{pageSize} 
+	</select> 
+	
+	<select id="getQuesionCount" resultType="int">  
+	  SELECT COUNT(*) FROM tb_question
+	</select>  
+	
+	<delete id="delQuestionById" parameterType="int">
+		delete from tb_question
+		where examquestionid=#{examquestionid}
+	</delete>
+	
+	<select id="queryCourse" resultType="Course">  
+	  SELECT DISTINCT c.*
+		FROM tb_course c INNER JOIN tb_exampaper e ON c.courseid = e.courseid
+	</select>  
+	<select id="selectPaperById" resultType="ExamPaper">  
+	  SELECT  exampaperid,ename as name
+		FROM tb_exampaper where courseid=#{courseid}
+	</select>   
+	
+	<insert id="insertExamPaper" parameterType="ExamQuestion2">
+		insert into tb_question(courseid,examPaperid,subject,type,optiona,optionb,optionc,optiond,answer)
+		values(#{courseid},#{examPaperid},#{subject},#{type},#{optiona},#{optionb},#{optionc},#{optiond},#{answer})
+	</insert>
+	
+	<select id="selectQuestion" parameterType="int" resultMap="ExamQuestionResult">  
+	 	SELECT q.examquestionid,q.subject,q.type,q.optiona,q.optionb,q.optionc,q.optiond,
+	 	q.answer,c.courseid,c.name,e.exampaperid,e.ename
+		FROM tb_question q LEFT JOIN tb_course c ON q.courseid =c.courseid 
+		LEFT JOIN tb_exampaper e ON q.exampaperid=e.exampaperid
+	</select>  
+	
+
+</mapper>

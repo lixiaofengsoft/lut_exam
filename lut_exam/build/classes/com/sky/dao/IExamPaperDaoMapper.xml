@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.dao.IExamPaperDao">
+	<resultMap type="ExamPaper" id="ExamPaperWithCourseResult"> 
+	  <id property="exampaperid" column="exampaperid" /> 
+	  <result property="name" column="ename" /> 
+	  <result property="time" column="time" /> 
+	  <result property="course.courseid" column="courseid" /> 
+	  <result property="course.name" column="name" /> 
+	</resultMap> 
+	
+	<select id="selectAllPaPer"  resultMap="ExamPaperWithCourseResult"> 
+		select e.exampaperid,e.ename,e.time, c.courseid,c.name
+		from tb_exampaper e left outer join tb_course c 
+		on c.courseid=e.courseid 
+		order by e.time  desc
+		limit #{startPos},#{pageSize} 
+	</select> 
+	
+	<select id="getPaPerCount" resultType="int">  
+	  SELECT COUNT(*) FROM tb_exampaper
+	</select>  
+	
+		<!-- 删除   -->
+	<delete id="delPaPerById" parameterType="int">
+		delete from tb_exampaper
+		where exampaperid=#{exampaperid}
+	</delete>
+	
+	<insert id="insertExamPaper" parameterType="ExamPaper">
+		insert into tb_exampaper(ename,time,courseid)
+		values(#{name},now(),#{course.courseid})
+	</insert>
+		<select id="selectPaperById" parameterType="int" resultMap="ExamPaperWithCourseResult"> 
+		select e.exampaperid,e.ename,e.time, c.courseid,c.name
+		from tb_exampaper e left outer join tb_course c 
+		on c.courseid=e.courseid 
+		where e.exampaperid=#{exampaperid}
+	</select> 
+	
+	<update id="updatePaPer" parameterType="ExamPaper">
+		update tb_exampaper
+		set
+		ename=#{name}
+		where
+		exampaperid=#{exampaperid}
+	</update>
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.dao.IResultDao">
+
+	<resultMap type="Result" id="SelectResult">
+		<id property="id" column="id" />
+		<result property="stuid" column="stuid" />
+		<result property="name" column="name" />
+		<result property="papername" column="papername" />
+		<result property="resone" column="resone" />
+		<result property="resmore" column="resmore" />
+		<result property="restotal" column="restotal" />
+		<result property="time" column="time" />
+	</resultMap>
+	<!-- 分页SQL语句 -->  
+	<select id="selectResultByPage" resultMap="SelectResult">  
+	  select   
+	  *  
+	  from tb_sturesult 
+	  order by time desc
+	  limit #{startPos},#{pageSize}   
+	</select>  
+	<!-- 取得记录的总数 -->  
+	<select id="getResuletCount" resultType="int">  
+	  SELECT COUNT(*) FROM tb_sturesult
+	</select>  
+	
+	<select id="searchResults" parameterType="map" resultMap="SelectResult"> 
+			SELECT * FROM tb_sturesult 
+			<where>  
+				<if test="stuid != null "> 
+					stuid = #{stuid}
+				</if> 
+				<if test="name != null"> 
+					AND name like #{name} 
+				</if> 
+			</where> 
+	</select> 
+	
+	<!-- 
+	<delete id="delCourseById" parameterType="int">
+		delete from tb_course
+		where courseid=#{courseid}
+	</delete>
+	<insert id="addCourse" parameterType="Course"> 
+		INSERT INTO
+		tb_course(courseid,name,time) 
+		VALUES(#{courseid},#{name},now()) 
+	</insert>
+	
+	<select id="editCourse" parameterType="int" resultType="Course">  
+	  select   
+		 *
+	  from tb_course where  courseid=#{courseid}
+	</select>  
+	
+	
+	<select id="selectAllCourse" resultMap="CourseResult">  
+	  select   
+	  *  
+	  from tb_course   
+	</select> -->  
+</mapper>

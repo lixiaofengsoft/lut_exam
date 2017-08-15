@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.dao.IStudentresDao">
+
+	<select id="selectStudentResByPage" resultType="Result">  
+	  select   
+	  *  
+	  from tb_sturesult
+	  where stuid=#{stuid}
+	  group by time desc
+	  limit #{startPos},#{pageSize}   
+	</select>  
+	<select id="getStudentResCount" resultType="int">  
+	  SELECT COUNT(*) FROM tb_sturesult
+	</select>  
+</mapper>

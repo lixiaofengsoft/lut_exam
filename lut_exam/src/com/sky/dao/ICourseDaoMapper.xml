@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.dao.ICourseDao">
+
+	<resultMap type="Course" id="CourseResult">
+		<id property="courseid" column="courseid" />
+		<result property="name" column="name" />
+		<result property="time" column="time" />
+	</resultMap>
+	<!-- 分页SQL语句 -->  
+	<select id="selectCourseByPage" resultMap="CourseResult">  
+	  select   
+	  *  
+	  from tb_course limit #{startPos},#{pageSize}   
+	</select>  
+	<!-- 取得记录的总数 -->  
+	<select id="getCourseCount" resultType="int">  
+	  SELECT COUNT(*) FROM tb_course
+	</select>  
+	
+	<!-- 删除 某们课程   -->
+	<delete id="delCourseById" parameterType="int">
+		delete from tb_course
+		where courseid=#{courseid}
+	</delete>
+	<insert id="addCourse" parameterType="Course"> 
+		INSERT INTO
+		tb_course(courseid,name,time) 
+		VALUES(#{courseid},#{name},now()) 
+	</insert>
+	
+	<select id="editCourse" parameterType="int" resultType="Course">  
+	  select   
+		 *
+	  from tb_course where  courseid=#{courseid}
+	</select>  
+	
+	
+	<select id="selectAllCourse" resultMap="CourseResult">  
+	  select   
+	  *  
+	  from tb_course   
+	</select>  
+</mapper>

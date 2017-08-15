@@ -1,0 +1,130 @@
+body{
+    padding:0;
+	margin:0;
+}
+.container{
+	width: 100%; 
+	margin: 0 auto;
+}
+ul {
+    list-style: none;
+}
+a {
+    text-decoration: none;
+}
+.find_nav {
+    width: 100%;
+    height: 45px;
+    background-color: #f9f9f9;
+   /*  position: fixed; */
+    top: 0;
+    z-index: 99;
+    border-bottom: 1px solid #ddd;
+    display: -moz-box;
+    display: -webkit-box;
+    display: box;
+}
+.find_nav_left {
+    height: 46px;
+    position: relative;
+    overflow: hidden;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    float: left;
+}
+.find_nav_list {
+    position: absolute;
+    left: 0;
+}
+.find_nav_list ul {
+    position: relative;
+    white-space: nowrap;
+    font-size: 0;
+}
+.find_nav_list ul li {
+    display: inline-block;
+    padding: 0 13px;
+}
+.find_nav_list ul li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 46px;
+    font-size: 18px;
+    text-align: center;
+    color: #666;
+    cursor：pointer;
+}
+.find_nav_list ul li a:hover{
+	color: #000000;
+	font-size: 30px;
+	 text-decoration: none;
+}
+.find_nav_right{
+	float: right;
+}
+
+.find_head{
+	background-color: #5EAB9D;
+/* 	background-image:images/bg.jpg; */
+    height: 80px;
+    position: relative;
+    width: 100%;
+}
+
+.logo{
+    float: left;
+    height: 100%;
+    position: absolute;
+    width: 200px;
+}
+
+.system{
+		width: 600px;
+		height: 100%;
+		float:left;
+		position: absolute;
+		left: 50px;
+}
+.system1{
+	color:white;
+	font-family: SimSun;
+	font-size:4em;
+}
+.welcome{
+		width: 480px;
+		height: 100%;
+		float:left;
+		position: absolute;
+		left:1200px;
+}
+.footer-text{
+	 text-align:center
+}
+.main{
+		height: 420px;
+		width: 100%; 
+		margin: 0 auto;
+		background-color: #FFF;
+}
+.smhead{
+	height:400px;
+	
+}
+.smhead1{
+	font-size: 25px;
+	color: #666;
+	
+}
+.smhead3{
+	height:70px;
+	
+}
+.smhead2{
+	height:280px;
+	
+}
+.smhead4{
+	
+}

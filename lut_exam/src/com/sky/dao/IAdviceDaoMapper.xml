@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.dao.IAdviceDao">
+		<resultMap type="Advice" id="AdviceResult">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="content" column="content" />
+		<result property="createtime" column="createtime" />
+	</resultMap>	
+
+	<select id="selectAdviceByPage" resultMap="AdviceResult">  
+	  select   
+	  *  
+	  from tb_advice 
+	  group by createtime desc
+	  limit #{startPos},#{pageSize}   
+	</select>  
+	<!-- 取得记录的总数 -->  
+	<select id="getAdviceCount" resultType="int">  
+	  SELECT COUNT(*) FROM tb_advice
+	</select>  
+	
+	<delete id="delAdvice" parameterType="int">
+		delete from tb_advice
+		where id=#{id}
+	</delete>
+	<insert id="addAdvice" parameterType="Advice">
+		insert into tb_advice(name,content,createtime) values (#{name},#{content},now())
+	</insert>
+	
+	<select id="selectAdvice" parameterType="int" resultType="Advice">  
+	  SELECT * FROM tb_advice where id=#{id}
+	</select>  
+</mapper>

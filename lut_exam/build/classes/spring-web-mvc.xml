@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+        http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	<!-- 自动注册相关bean,用以支持SpringMVC的注解 -->
+	<mvc:annotation-driven/>
+	<!-- 扫描哪个包下面有Spring中加了注解的组件 例如我们的Controller -->
+	<context:component-scan base-package="com.sky.web.controller"></context:component-scan>
+	
+	<!-- 注册视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>  
+		<property name="prefix" value="/WEB-INF/jsp/"/>  
+		<property name="suffix" value=".jsp"/>  
+	</bean>
+	
+	<!-- 处理静态资源的访问 -->
+	<mvc:resources mapping="/bootstrap3/**" location="/bootstrap3/"/>  
+	<mvc:resources mapping="/images/**" location="/images/"/>  
+	<mvc:resources mapping="/js/**" location="/js/"/>  
+	<mvc:resources mapping="/css/**" location="/css/"/> 
+	
+	<mvc:view-controller path="/login" view-name="student/login"/>
+	<mvc:view-controller path="/login2" view-name="login2"/>	
+	<mvc:view-controller path="/success" view-name="success"/>
+	<mvc:view-controller path="/error" view-name="error"/>
+	
+<!-- 	<bean name="loginInterceptor" class="com.sky.web.interceptor.LoginInterceptor"></bean>
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*"/>
+			<ref bean="loginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors> -->
+</beans>

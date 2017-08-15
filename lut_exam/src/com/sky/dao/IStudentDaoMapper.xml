@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.dao.IStudentDao">
+
+	<resultMap type="Student" id="StudentResult">
+		<id property="stuId" column="stu_id" />
+		<result property="name" column="name" />
+		<result property="password" column="password" />
+		<result property="sex" column="sex" />
+		<result property="joinTime" column="jointime" />
+		<result property="profession" column="profession" />
+	</resultMap>
+	<!-- 分页SQL语句 -->  
+	<select id="selectStudentByPage" resultMap="StudentResult">  
+	  select   
+	  *  
+	  from tb_student limit #{startPos},#{pageSize}   
+	</select>  
+	<!-- 取得记录的总数 -->  
+	<select id="getStudentCount" resultType="long">  
+	  SELECT COUNT(*) FROM tb_student
+	</select>  
+	
+	<!-- 删除 某个学生 -->  
+	<delete id="delStudentById" parameterType="int">
+		delete from tb_student
+		where stu_id=#{stuId}
+	</delete>
+	
+	<!-- 添加某个学生 -->  
+	<insert id="addStudent" parameterType="Student"> 
+		INSERT INTO
+		tb_student(stu_id,name,password,sex,jointime,profession) 
+		VALUES(#{stuId},#{name},#{password},#{sex},#{joinTime},#{profession}) 
+	</insert>
+	
+		<select id="editStudent" parameterType="int" resultType="Student">  
+	  select   
+	  stu_id as stuId,name,password,sex,jointime as joinTime,profession  
+	  from tb_student where  stu_id=#{stuId}
+	</select>  
+	
+	<select id="searchStudents" parameterType="map" resultMap="StudentResult"> 
+			SELECT * FROM tb_student 
+			<where>  
+				<if test="stuId != null "> 
+					stu_id = #{stuId}
+				</if> 
+				<if test="name != null"> 
+					AND name like #{name} 
+				</if> 
+			</where> 
+	</select> 
+	
+	
+		<insert id="addManager" parameterType="Manager"> 
+		INSERT INTO
+		tb_manager(name,password)
+		VALUES(#{name},#{password}) 
+	</insert>
+</mapper>

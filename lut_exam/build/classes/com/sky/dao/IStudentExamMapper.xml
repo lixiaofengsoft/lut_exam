@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.dao.IStudentExamDao">
+	<select id="selectAllOne" parameterType="int" resultType="ExamQuestion2">  
+	  select   
+	  *  
+	  from tb_question
+	  where type='单选题'
+	  and exampaperid=#{examPaperid}
+	</select>  
+	<select id="selectAllMore" parameterType="int" resultType="ExamQuestion2">  
+	  select   
+	  *  
+	  from tb_question
+	  where type='多选题'
+	  and exampaperid=#{examPaperid}
+	</select>  
+	<select id="selectExamPaper" parameterType="int" resultType="ExamPaper">  
+	  select   
+	  ename as name  
+	  from tb_exampaper
+	  where exampaperid=#{examPaperid}
+	</select>  
+</mapper>
